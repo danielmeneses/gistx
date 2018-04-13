@@ -1,3 +1,0 @@
-export const ACTIONS = {
-  CHANGE_APP_TOKEN: 'CHANGE_APP_TOKEN'
-};
