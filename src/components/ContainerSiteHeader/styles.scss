@@ -1,0 +1,62 @@
+.ContainerSiteHeader {
+  &__header {
+    &__closeopen {
+      font-size: 1.2rem !important;
+      &:hover {
+        color: white;
+        background-color: #333;
+        cursor: pointer;
+      }
+    }
+    &__logo {
+      padding-left: .5rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    &__search {
+      font-size: 1rem;
+      position: relative;
+      left: 2rem;
+      width: 20rem;
+    }
+    &__col-right {
+      text-align: right;
+      &__new-gist {
+        &:before {
+          opacity: .7;
+          transition: opacity 0.35s ease;
+        }
+        position: relative;
+        top: 1rem;
+        display: inline-block;
+        font-size: 1.5rem !important;
+        transition: font-size 0.35s ease, left 0.35s ease, opacity 0.35s ease;
+        &:hover {
+          cursor: pointer;
+          font-size: 2rem !important;
+          left: .3rem;
+          text-shadow: 0px 5px 10px #ddd;
+          &:before {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    &__col-center {
+      text-align: left !important;
+    }
+  }
+  &__gistlist {
+    margin-top: 1rem;
+  }
+  &__segment {
+    border: none !important;
+    &__dimmer {
+      border: none !important;
+    }
+    &__loader-container{
+      height: 30rem;
+      background-color: #ddd;
+    }
+  }
+}

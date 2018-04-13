@@ -1,0 +1,35 @@
+.Tags {
+  display: inline-flex;
+  width: 9rem;
+  position: relative;
+  left: 3rem;
+  top: -.2rem;
+  text-align: left;
+  &__tag-style {
+    background-color: #333;
+    color: #fff;
+    padding: .4rem;
+    text-transform: uppercase;
+    font-size: .7rem;
+    font-weight: bold;
+    border-radius:5px;
+    // box-shadow: -2px 2px 3px #999;
+  }
+}
+
+.Select-value-label {
+  padding: 0 !important;
+  border-right: none;
+}
+
+.Select-value {
+  border: none !important;
+  background: transparent !important;
+}
+
+.Select-value-icon {
+  color: #000;
+  background: #fff !important;
+  border: solid 1px #bbb;
+  border-right: none !important;
+}

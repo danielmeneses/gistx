@@ -1,0 +1,28 @@
+{
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+    "curly": ["error", "multi"],
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "bracketSpacing": true,
+      "jsxBracketSameLine": true,
+      "semi": true
+    }],
+    "no-useless-escape": "off"
+  },
+  "globals": {
+    "screen": true
+  }
+}

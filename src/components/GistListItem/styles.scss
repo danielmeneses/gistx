@@ -1,0 +1,99 @@
+$gistLineBack: #333;
+.GistListItem {
+  &__accorditem {
+    background-color: #eeeffe;
+    padding: .7rem !important;
+    color: #999;
+    border-bottom: solid 1px #dcdcdc;
+    &__date {
+      color: #ccc;
+      font-size: .8rem;
+      margin-right: 1rem;
+      width: 70px;
+      display: inline-block;
+    }
+    &__desc {
+      position: relative;
+      top: .15rem;
+      max-width: 45%;
+      display: inline-block;
+      color: #333;
+      margin-left: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: bold;
+    }
+
+    &:hover {
+      cursor: pointer;
+      // background-color: #333 !important;
+      background-color: #ecedff !important;
+      box-shadow: inset -10px -50px 30px #e1e2fd;
+      .GistListItem__accorditem__desc, .GistListItem__accorditem__date {
+        color: #000;
+      }
+
+      .GistListItem__accorditem__remove, .GistListItem__accorditem__edit {
+        display: inline-block;
+      }
+    }
+    &__content {
+      background-color: $gistLineBack;
+      &__tabs {
+        background-color: $gistLineBack !important;
+        &__pane {
+          background-color: $gistLineBack !important;
+          border: solid 1px #222 !important;
+        }
+      }
+    }
+    &.active {
+      background-color: #333 !important;
+      box-shadow: none;
+      .GistListItem__accorditem__desc {
+        color: #fff;
+
+      }
+      .GistListItem__accorditem__date{
+        color: #ccc;
+      }
+      .GistListItem__accorditem__remove, .GistListItem__accorditem{
+
+        &__edit, &__remove {
+          color: #ccc;
+          display: inline-block;
+        }
+        &__remove:hover {
+          color: #FF4B4B;
+          text-shadow:none;
+        }
+        &__edit {
+          text-shadow:none;
+        }
+      }
+    }
+    &__remove, &__edit {
+      color: #444;
+      position: absolute;
+      right: 1rem;
+      margin-top: .1rem;
+      display: none;
+      font-size: 1.1rem;
+      transition: font-size 0.35s ease, right 0.35s ease, color 0.35s ease;
+      &:hover {
+        font-size: 1.6rem;
+        right: .7rem;
+        text-shadow: 0px 5px 10px #aaa;
+        color: #FF4B4B;
+      }
+    }
+    &__edit {
+      right: 3.2rem;
+      &:hover {
+        right: 2.9rem;
+        color: #444;
+      }
+    }
+  }
+}
