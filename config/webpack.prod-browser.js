@@ -18,11 +18,11 @@ module.exports = {
   mode: 'production',
   output: {
     filename: '[name]-bundle-[hash:8].js',
-    path: path.resolve(__dirname, '..', 'dist-browser'),
+    path: path.resolve(__dirname, '..', 'client'),
     publicPath: '/'
   },
   devServer: {
-    contentBase: 'dist-browser',
+    contentBase: 'client',
     overlay: false,
     stats: {
       colors: false
@@ -66,7 +66,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist-browser'], {
+    new CleanWebpackPlugin(['client'], {
       root: path.resolve(__dirname, '..'),
       verbose: true,
       dry: false
