@@ -1,39 +1,29 @@
 import { call, put, take } from 'redux-saga/effects';
-import githubAPI from '../../../connections/github-api';
+import logger from 'loglevel';
 import { ACTIONS } from '../constants';
 import { setGistInfo } from '../actions';
 import { changeActiveGistIndex } from '../../ContainerGistDetails/actions';
-import { removeUnneededProps } from './fetch-gists';
 
 import {
   setBeachBallVisible,
   clearMessages,
   actionError
 } from '../../../reducers/common/actions';
+import storage from '../../../lib/storage';
 
 const { FETCH_GIST_CONTENT } = ACTIONS;
 
-export const getGist = id => {
-  return new Promise((resolve, reject) => {
-    githubAPI.get(`/gists/${id}`, function(error, gist) {
-      if (error) reject(error);
-      else
-        removeUnneededProps(gist).then(_gists => {
-          resolve(_gists[0]);
-        });
-    });
-  });
-};
-
 function* fetchGistContentData(action) {
   try {
-    const { gistProps: { id, index } } = action;
+    const {
+      gistProps: { id, index }
+    } = action;
     yield put(changeActiveGistIndex(index));
     yield put(setBeachBallVisible(true));
-    const gist = yield call(getGist, id);
+    const gist = yield call(storage.getGistDetails, id);
     yield put(setGistInfo(index, gist));
   } catch (e) {
-    console.error(e);
+    logger.error(e);
     yield put(actionError('Failed to fetch gists!'));
   } finally {
     yield put(clearMessages());

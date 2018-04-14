@@ -1,7 +1,7 @@
 import { call, put, take } from 'redux-saga/effects';
-import githubAPI from '../../../connections/github-api';
 import { ACTIONS } from '../constants';
 import { fetchGists, showDialogNewSnip } from '../actions';
+import logger from 'loglevel';
 
 import {
   setBeachBallVisible,
@@ -9,29 +9,21 @@ import {
   actionSuccess,
   actionError
 } from '../../../reducers/common/actions';
+import storage from '../../../lib/storage';
 
 const { CREATE_NEW_SNIPPET } = ACTIONS;
-
-const createGist = gistInfo => {
-  return new Promise((resolve, reject) => {
-    githubAPI.post(`/gists`, gistInfo, function(error, gist) {
-      if (error) reject(error);
-      else resolve(gist);
-    });
-  });
-};
 
 function* createGistData(action) {
   try {
     const { snippetInfo } = action;
     yield put(showDialogNewSnip(false));
     yield put(setBeachBallVisible(true));
-    yield call(createGist, snippetInfo);
+    yield call(storage.createGist, snippetInfo);
     // reload all gists
     yield put(fetchGists());
     yield put(actionSuccess('Snippet was successfully created!'));
   } catch (e) {
-    console.error(e);
+    logger.error(e);
     yield put(actionError(e.message));
   } finally {
     yield put(clearMessages());

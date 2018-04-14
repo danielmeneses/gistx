@@ -1,5 +1,5 @@
 import { call, put, take } from 'redux-saga/effects';
-import githubAPI from '../../../connections/github-api';
+import logger from 'loglevel';
 import { ACTIONS } from '../constants';
 import {
   deleteFile,
@@ -15,17 +15,9 @@ import {
   actionSuccess,
   actionError
 } from '../../../reducers/common/actions';
+import storage from '../../../lib/storage';
 
 const { SAVE_GIST_FILE } = ACTIONS;
-
-const editGist = (id, gistDataToSave) => {
-  return new Promise((resolve, reject) => {
-    githubAPI.patch(`/gists/${id}`, gistDataToSave, function(error, gist) {
-      if (error) reject(error);
-      else resolve(gist);
-    });
-  });
-};
 
 function* editGistContentData(action) {
   const { id, gistDataToSave, index, context } = action;
@@ -39,7 +31,7 @@ function* editGistContentData(action) {
     if (context === 'delete') yield put(openConfirmDelFile(null, null, null));
     else if (context === 'edit-description') yield put(editSnipDesc(null));
 
-    yield call(editGist, id, gistDataToSave);
+    yield call(storage.saveGist, id, gistDataToSave);
     let msg = 'File successfully updated!';
 
     if (context === 'delete') {
@@ -56,7 +48,7 @@ function* editGistContentData(action) {
 
     yield put(actionSuccess(msg));
   } catch (e) {
-    console.error(e);
+    logger.error(e);
     yield put(actionError('Something went wrong. Please try again later!'));
   } finally {
     yield put(clearMessages());

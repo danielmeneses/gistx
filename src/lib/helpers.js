@@ -20,11 +20,23 @@ export const getToken = () => {
   let token = null;
   // test universal version first
   if (auth.token) token = auth.token;
+  // try non universal
   else
-    // try non universal
     try {
       token = window.localStorage.getItem(auth.localStorage.tokenKeyName);
     } catch (e) {}
 
   return token;
+};
+
+export const objToQueryString = obj => {
+  const query = [];
+  Object.keys(obj).reduce((all, key, index) => {
+    let item = '';
+    if (index > 0) item += '&';
+    item += `${key}=${obj[key]}`;
+    query.push(item);
+    return query;
+  }, query);
+  return query.join('&');
 };

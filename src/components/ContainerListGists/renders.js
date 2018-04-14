@@ -133,7 +133,6 @@ export default function Renders() {
         <Tags
           className="DefaultDialog__tags"
           changeCurrentTags={() => {
-            console.log('To be implemented!!');
           }}
           tags={existingTags}
         /> */}

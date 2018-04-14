@@ -10,6 +10,7 @@ import DefaultDialog from '../DefaultDialog';
 import { generateUniqueId } from '../../lib/helpers';
 import GistList from '../GistList';
 import Renders from './renders';
+import logger from 'loglevel';
 
 import './styles.scss';
 
@@ -135,7 +136,6 @@ class ContainerListGists extends React.Component {
         <Tags
           className="DefaultDialog__tags"
           changeCurrentTags={() => {
-            console.log('To be implemented!!');
           }}
           tags={existingTags}
         /> */}

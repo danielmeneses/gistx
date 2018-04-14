@@ -1,6 +1,7 @@
 /*global screen*/
 /*eslint no-restricted-globals: ["off", "screen"]*/
 /*eslint no-eval: "off"*/
+import logger from 'loglevel';
 import React from 'react';
 import PropTypes from 'prop-types';
 import MonacoEditor from 'react-monaco-editor';
@@ -71,7 +72,7 @@ class GistItemFile extends React.Component {
         ${this.codeEditorRef.current.__current_value}
       }.bind(window)())`);
     } catch (e) {
-      console.error(e);
+      logger.error(e);
     }
   }
   _onChangeLanguage(e, element) {
