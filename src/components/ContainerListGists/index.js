@@ -10,7 +10,6 @@ import DefaultDialog from '../DefaultDialog';
 import { generateUniqueId } from '../../lib/helpers';
 import GistList from '../GistList';
 import Renders from './renders';
-import logger from 'loglevel';
 
 import './styles.scss';
 
