@@ -21,11 +21,11 @@ Any tool needs some boost, this one is no different, here is a list of the main 
 
 ## What is?
 
-It's a easy way to manage your snippets where all snippets are gists so that also means that you need a Github account. The main advantage over the gist
+It's a easy and faster way to manage your snippets. In fact the applications uses gists (Github) so that also means that you need a Github account.
 
 ## How to use?
 
-It's important to note that this application doesn't use Github's Oauth system because it requires to create an application ID & Secret and that would involve the need of a 24/7 server handling the authentication communication. That said, you should generate a developer token from your Github account.
+You can use directly from [here](https://danielmeneses.github.io/gistx/), but it's important to note that this application doesn't use Github's Oauth system because it requires to create an application ID & Secret and that would involve the need of a 24/7 server handling the authentication communication. That said, you should generate a developer token from your Github account.
 
 To get/generate a token, in your Github account you should go to: `Settings -> Developer settings -> Personal tokens` and create a new token allowing access only to `Gists`. Once you have the token place it in the app (it will be required, is the first thing the app requests). The token will be then saved to your browsers `localStorage`.
 
