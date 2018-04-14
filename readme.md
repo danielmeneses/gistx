@@ -2,6 +2,8 @@
 
 A better way to manage your snippets / gists.
 
+### [Go to app](https://danielmeneses.github.io/gistx/)
+
 ![Alt Text](https://image.ibb.co/cfke47/gistx_2.gif)
 
 ## Main libs used
