@@ -2,8 +2,6 @@
 
 A better way to manage your snippets / gists.
 
-[Skip the BS and go straight to the app]()
-
 ![Alt Text](https://image.ibb.co/cfke47/gistx_2.gif)
 
 ## Main libs used
@@ -24,8 +22,6 @@ Any tool needs some boost, this one is no different, here is a list of the main 
 It's a easy way to manage your snippets where all snippets are gists so that also means that you need a Github account. The main advantage over the gist
 
 ## How to use?
-
-You can use it from [here]() or install it on your own machine as discussed in the topic below.
 
 It's important to note that this application doesn't use Github's Oauth system because it requires to create an application ID & Secret and that would involve the need of a 24/7 server handling the authentication communication. That said, you should generate a developer token from your Github account.
 
