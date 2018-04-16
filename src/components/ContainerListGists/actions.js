@@ -188,3 +188,10 @@ export const setFileLoading = (index, filename, loading) => {
     loading
   };
 };
+
+export const changeSelectedNewGistTag = value => {
+  return {
+    type: ACTIONS.CHANGE_SELECTED_NEW_GIST_TAG,
+    value
+  };
+};

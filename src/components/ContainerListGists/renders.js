@@ -1,5 +1,6 @@
 import React from 'react';
 import { Confirm, Input, Divider, Checkbox } from 'semantic-ui-react';
+import Tags from '../Tags';
 
 export default function Renders() {
   this._renderDeleteFileData = () => {
@@ -104,8 +105,8 @@ export default function Renders() {
   };
 
   this._renderNewSnipContent = () => {
-    const { description, public: _public } = this.props.newGist;
-    // const { tags: existingTags } = this.props;
+    const { description, public: _public, selectedTag } = this.props.newGist;
+    const { tags: existingTags } = this.props;
     return (
       <div key="new-snip-content">
         <p className="DefaultDialog__title">Create new Snippet</p>
@@ -129,13 +130,13 @@ export default function Renders() {
           toggle
           checked={_public}
         />
-        {/* <span className="DefaultDialog__label">Tags</span>
+        <span className="DefaultDialog__label">Tags</span>
         <Tags
           className="DefaultDialog__tags"
-          changeCurrentTags={() => {
-          }}
+          changeCurrentTags={this.props.changeSelectedNewGistTag}
           tags={existingTags}
-        /> */}
+          currentSelectedTags={selectedTag || null}
+        />
       </div>
     );
   };

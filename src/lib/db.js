@@ -1,4 +1,4 @@
-import githubAPI from 'github-base';
+import storage from './storage';
 
 export const CONFIG_GIST_DESCRIPTION = '__SNIPS::::CONFIG::::PROPS__';
 const TAGS_FILENAME = 'tags.json';
@@ -10,21 +10,7 @@ class DB {
   }
 
   setConfig(config = null) {
-    this.config = {
-      ...config,
-      content: {
-        ...config.content,
-        files: {
-          ...Object.keys(config.content.files).map(key => {
-            return {
-              [key]: {
-                content: JSON.parse(config.content.files[key].content)
-              }
-            };
-          })
-        }
-      }
-    }
+    this.config = config
       ? config
       : {
           content: {
@@ -57,14 +43,12 @@ class DB {
         }
       };
       if (id)
-        githubAPI.patch(`/gists/${id}`, newContent, function(error, gist) {
-          if (error) reject(error);
-          else resolve(gist);
+        storage.saveGist(id, newContent).then(result => {
+          resolve(result);
         });
       else
-        githubAPI.post(`/gists`, newContent, function(error, gist) {
-          if (error) reject(error);
-          else resolve(gist);
+        storage.createGist(newContent).then(result => {
+          resolve(result);
         });
     });
   }
@@ -80,7 +64,7 @@ class DB {
   }
 
   getTags() {
-    return {
+    const tags = {
       ...this._getTagsInfo('tags'),
       1: {
         name: 'public',
@@ -91,6 +75,7 @@ class DB {
         color: 'blue'
       }
     };
+    return tags;
   }
 
   getGistTags() {

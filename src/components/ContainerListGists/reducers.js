@@ -8,7 +8,8 @@ const initialState = {
   createSnipVisible: false,
   newGist: {
     description: '',
-    public: false
+    public: false,
+    selectedTag: null
   },
   deleteSnipData: {},
   deleteFileInfo: {},
@@ -169,6 +170,14 @@ export const listGistsReducer = (state = initialState, action) => {
         newGist: {
           ...state.newGist,
           [action.fieldName]: action.value
+        }
+      };
+    case ACTIONS.CHANGE_SELECTED_NEW_GIST_TAG:
+      return {
+        ...state,
+        newGist: {
+          ...state.newGist,
+          selectedTag: action.value
         }
       };
 

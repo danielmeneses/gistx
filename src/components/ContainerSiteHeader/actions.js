@@ -54,3 +54,24 @@ export const changeCurrentTags = value => {
     value
   };
 };
+
+export const openAddTag = visible => {
+  return {
+    type: ACTIONS.OPEN_ADD_TAG,
+    visible
+  };
+};
+
+export const editAddTagLabel = label => {
+  return {
+    type: ACTIONS.OPEN_ADD_TAG_EDIT_LABEL,
+    label
+  };
+};
+
+export const editAddTagColor = color => {
+  return {
+    type: ACTIONS.OPEN_ADD_TAG_EDIT_COLOR,
+    color
+  };
+};

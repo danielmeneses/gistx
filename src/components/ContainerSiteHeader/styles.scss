@@ -19,6 +19,20 @@
       left: 2rem;
       width: 20rem;
     }
+    &__addtag {
+      font-size: 1rem;
+      position: relative;
+      left: 4rem;
+      &:before {
+        color: #666;
+      }
+      &:hover {
+        cursor: pointer;
+        &:before {
+          color: #333;
+        }
+      }
+    }
     &__col-right {
       text-align: right;
       &__new-gist {
@@ -58,5 +72,12 @@
       height: 30rem;
       background-color: #ddd;
     }
+  }
+}
+
+.DefaultDialog {
+  &__tagcolors {
+    margin-left: 50%;
+    transform: translate(-50%, 0);
   }
 }

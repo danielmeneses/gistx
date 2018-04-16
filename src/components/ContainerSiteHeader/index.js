@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, Icon, Input, Loader } from 'semantic-ui-react';
+import { Grid, Icon, Input, Loader, Confirm } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { CirclePicker } from 'react-color';
 import * as actions from './actions';
 import { setVisible } from '../ContainerSidebar/actions';
 import { searchGist, showDialogNewSnip } from '../ContainerListGists/actions';
@@ -16,10 +17,68 @@ class ContainerSiteHeader extends React.Component {
 
     // bind functions
     this._onSearch = this._onSearch.bind(this);
+    this._renderAddNewTag = this._renderAddNewTag.bind(this);
   }
 
   _onSearch(e, element) {
     this.props.searchGist(element.value);
+  }
+
+  _renderAddNewTag() {
+    const {
+      addTagInfo: { visible, label, color },
+      // functions
+      editAddTagLabel,
+      editAddTagColor,
+      openAddTag,
+      addTag
+    } = this.props;
+    const maxLabelLength = 10;
+    if (visible === true)
+      return (
+        <Confirm
+          key="edit-gist"
+          confirmButton="Create Tag"
+          className="DefaultDialog"
+          open={true}
+          onConfirm={() => {
+            if (
+              label.replace(
+                / /g,
+                '' && label.length <= maxLabelLength && color
+              ) !== ''
+            )
+              addTag(label, color);
+          }}
+          onCancel={openAddTag.bind(null, false)}
+          content={
+            <div>
+              <p className="DefaultDialog__title">Create new Tag</p>
+              <Input
+                error={label.replace(/ /g, '') === ''}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+                maxLength="10"
+                placeholder="Tag label name..."
+                onChange={e => {
+                  editAddTagLabel(e.target.value);
+                }}
+                className="DefaultDialog__description"
+                type="text"
+                value={label}
+              />
+              <CirclePicker
+                className="DefaultDialog__tagcolors"
+                color={color}
+                onChange={editAddTagColor}
+              />
+            </div>
+          }
+        />
+      );
+    return null;
   }
 
   render() {
@@ -32,9 +91,11 @@ class ContainerSiteHeader extends React.Component {
       tags,
       currentSelectedTags,
       changeCurrentTags,
+      openAddTag,
       // setVisible,
       showDialogNewSnip
     } = this.props;
+    const addTagRender = this._renderAddNewTag();
     return (
       <Grid className="ContainerSiteHeader__header">
         <Grid.Row columns={16}>
@@ -59,12 +120,18 @@ class ContainerSiteHeader extends React.Component {
               tags={tags}
               currentSelectedTags={currentSelectedTags}
             />
+            <Icon
+              name="tags"
+              className="ContainerSiteHeader__header__addtag"
+              onClick={openAddTag.bind(null, true)}
+            />
+            {addTagRender}
             {loading &&
               gists.length &&
               activeItemIndex === -1 && (
                 <Loader
                   style={{
-                    marginLeft: '4rem',
+                    marginLeft: '5rem',
                     marginTop: '-.4rem'
                   }}
                   active
@@ -96,6 +163,7 @@ ContainerSiteHeader.propTypes = {
   sideBarVisible: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   activeItemIndex: PropTypes.number.isRequired,
+  addTagInfo: PropTypes.object.isRequired,
   // functions
   setVisible: PropTypes.func.isRequired,
   changeCurrentTags: PropTypes.func.isRequired,
@@ -115,6 +183,7 @@ const mapStateToProps = (state, props) => {
   return {
     tags: state.tagsManager.tags,
     gistTags: state.tagsManager.gistTags,
+    addTagInfo: state.tagsManager.addTagInfo,
     currentSelectedTags: state.tagsManager.currentSelectedTags,
     sideBarVisible: state.sideBar.visible,
     searchValue: state.listGists.searchValue,
