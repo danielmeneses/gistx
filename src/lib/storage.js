@@ -161,22 +161,24 @@ class Storage {
     let gists = getItem(config.sessionStorage.gistsKeyName);
     if (!gists || forceFetch) {
       gists = await getAllGists({ pagination });
-      if (gists)
-        for (let i = 0; i < gists.length; i++) {
-          const gist = gists[i];
-          if (gist.description === CONFIG_GIST_DESCRIPTION) {
-            const _gist = await getGist(gist.id);
-            db.setConfig({
-              content: {
-                description: _gist.description,
-                files: _gist.files
-              },
-              id: _gist.id
-            });
-          }
-        }
       this.saveGists(gists);
     }
+
+    // set config - first load
+    if (gists && !db.config)
+      for (let i = 0; i < gists.length; i++) {
+        const gist = gists[i];
+        if (gist.description === CONFIG_GIST_DESCRIPTION) {
+          const _gist = await getGist(gist.id);
+          db.setConfig({
+            content: {
+              description: _gist.description,
+              files: _gist.files
+            },
+            id: _gist.id
+          });
+        }
+      }
 
     return gists;
   }

@@ -73,11 +73,11 @@ class DB {
     return {};
   }
 
-  async addTag(color, label) {
+  async addTag(color, name) {
     const tags = this.getTags();
     tags[generateUniqueId()] = {
       color,
-      name: label
+      name
     };
 
     const content = {
