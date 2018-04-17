@@ -186,30 +186,28 @@ class ContainerListGists extends React.Component {
           onConfirm={this._onCreateNewSnip}
         />
       ),
-      gists.length > 0 && (
-        <GistList
-          key="gist-accordion-container"
-          activeItemIndex={activeItemIndex}
-          searchValue={searchValue}
-          currentSelectedTags={currentSelectedTags}
-          gists={finalGists}
-          indexes={indexes}
-          changeGistLineContent={changeGistLineContent}
-          onChangeEditorLanguage={onChangeEditorLanguage}
-          saveGistFile={saveGistFile}
-          changeGistPublic={changeGistPublic}
-          changeFilename={changeFilename}
-          onDeleteSnipConfirm={onDeleteSnipConfirm}
-          onDeleteSnip={onDeleteSnip}
-          openConfirmDelFile={openConfirmDelFile}
-          openEditSnip={openEditSnip}
-          deleteFile={deleteFile}
-          changeTabActiveIndex={changeTabActiveIndex}
-          changeActiveGistIndex={changeActiveGistIndex}
-          fetchGistContent={fetchGistContent}
-          showDialogNewSnip={showDialogNewSnip}
-        />
-      ),
+      <GistList
+        key="gist-accordion-container"
+        activeItemIndex={activeItemIndex}
+        searchValue={searchValue}
+        currentSelectedTags={currentSelectedTags}
+        gists={finalGists}
+        indexes={indexes}
+        changeGistLineContent={changeGistLineContent}
+        onChangeEditorLanguage={onChangeEditorLanguage}
+        saveGistFile={saveGistFile}
+        changeGistPublic={changeGistPublic}
+        changeFilename={changeFilename}
+        onDeleteSnipConfirm={onDeleteSnipConfirm}
+        onDeleteSnip={onDeleteSnip}
+        openConfirmDelFile={openConfirmDelFile}
+        openEditSnip={openEditSnip}
+        deleteFile={deleteFile}
+        changeTabActiveIndex={changeTabActiveIndex}
+        changeActiveGistIndex={changeActiveGistIndex}
+        fetchGistContent={fetchGistContent}
+        showDialogNewSnip={showDialogNewSnip}
+      />,
       !gists.length &&
         loading && (
           <div
