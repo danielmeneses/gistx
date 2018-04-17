@@ -1,4 +1,5 @@
 import auth from '../../config/main';
+import loglevel from 'loglevel';
 
 export const generateUniqueId = () => {
   return Math.random()
@@ -24,7 +25,9 @@ export const getToken = () => {
   else
     try {
       token = window.localStorage.getItem(auth.localStorage.tokenKeyName);
-    } catch (e) {}
+    } catch (e) {
+      loglevel.warn('Couldnt get token:', e);
+    }
 
   return token;
 };

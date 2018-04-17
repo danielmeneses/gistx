@@ -35,24 +35,32 @@
     }
     &__col-right {
       text-align: right;
-      &__new-gist {
+      height: 1rem;
+      &__new-gist, &__refresh {
         &:before {
           opacity: .7;
           transition: opacity 0.35s ease;
         }
-        position: relative;
+        width: 2rem;
+        right: 1rem;
+        position: absolute;
         top: 1rem;
-        display: inline-block;
         font-size: 1.5rem !important;
         transition: font-size 0.35s ease, left 0.35s ease, opacity 0.35s ease;
         &:hover {
           cursor: pointer;
           font-size: 2rem !important;
-          left: .3rem;
+          margin-right: -.1rem;
           text-shadow: 0px 5px 10px #ddd;
           &:before {
             opacity: 1;
           }
+        }
+      }
+      &__refresh {
+        margin-right: 2.8rem !important;
+        &:hover {
+          margin-right: 2.5rem !important;
         }
       }
     }

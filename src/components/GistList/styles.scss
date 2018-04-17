@@ -1,0 +1,32 @@
+.ContainerListGists {
+  &__no-gists {
+    margin-top: 1rem;
+    background-color: #ececec;
+    position: relative;
+    width: 100%;
+    min-height: 40rem;
+    text-align: center;
+    border-radius: 5px;
+    border: solid 1px #eee;
+    &__sad {
+      cursor: pointer;
+      &:before {
+        color: #ccc;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        bottom: auto;
+        left: auto;
+        font-size: 10rem;
+        transform: translate(50%, -50%);
+        transition: font-size .35s ease, color .35s ease-in;
+      }
+      &:hover {
+        &::before {
+          font-size: 12rem;
+          color: yellowgreen;
+        }
+      }
+    }
+  }
+}

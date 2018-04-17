@@ -39,12 +39,12 @@ class GistItemFile extends React.Component {
     return shouldComponentUpdate(nextProps, this.props);
   }
 
-  componentWillUnmount() {
-    // we're not using a controled text for monaco editor. Rerendering the component is too
-    // expensive, so the solution is to only save data to the store on save or the
-    // component unmount - I guess this is the price to pay for monaco features at this point
-    this._changeFileData();
-  }
+  // componentWillUnmount() {
+  //   // we're not using a controled text for monaco editor. Rerendering the component is too
+  //   // expensive, so the solution is to only save data to the store on save or the
+  //   // component unmount - I guess this is the price to pay for monaco features at this point
+  //   this._changeFileData();
+  // }
   _changeFileData(content) {
     // update text
     const { content: curContent } = this.props.file;
@@ -58,6 +58,8 @@ class GistItemFile extends React.Component {
   }
   _editorDidMount(editor, monaco) {
     // editor.focus();
+    const model = editor.getModel();
+    model.updateOptions({ tabSize: 2, defaultTabSize: 2 });
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => {
       this._onSaveFile();
     });
@@ -164,7 +166,7 @@ class GistItemFile extends React.Component {
           // openConfirmDelFile = (id, fileToDeleteInfo, index)
           onClick={() => {
             if (loading) return;
-            this.componentWillUnmount = () => null;
+            // this.componentWillUnmount = () => null;
             if (isNew === true) deleteFile(index, filename);
             else
               openConfirmDelFile(
@@ -183,6 +185,7 @@ class GistItemFile extends React.Component {
           key="GistItemFile__editorwrapper"
           className="GistItemFile__editorwrapper">
           <MonacoEditor
+            onChange={this._changeFileData}
             ref={this.codeEditorRef}
             key={`gist-editor-${fileId}`}
             {...defaultMonacoConfig}

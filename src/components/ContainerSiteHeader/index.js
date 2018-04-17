@@ -6,7 +6,11 @@ import { connect } from 'react-redux';
 import { CirclePicker } from 'react-color';
 import * as actions from './actions';
 import { setVisible } from '../ContainerSidebar/actions';
-import { searchGist, showDialogNewSnip } from '../ContainerListGists/actions';
+import {
+  searchGist,
+  showDialogNewSnip,
+  fetchGists
+} from '../ContainerListGists/actions';
 import Tags from '../Tags';
 
 import './styles.scss';
@@ -114,19 +118,21 @@ class ContainerSiteHeader extends React.Component {
               type="text"
               onChange={this._onSearch}
               icon="search"
+              disabled={gists.length === 0}
             />
             <Tags
+              disabled={gists.length === 0}
               changeCurrentTags={changeCurrentTags}
               tags={tags}
               currentSelectedTags={currentSelectedTags}
             />
-            <Icon
+            {/* <Icon
               name="tags"
               className="ContainerSiteHeader__header__addtag"
               onClick={openAddTag.bind(null, true)}
-            />
-            {addTagRender}
-            {loading &&
+            /> */}
+            {/* {addTagRender} */}
+            {/* {loading &&
               gists.length &&
               activeItemIndex === -1 && (
                 <Loader
@@ -137,7 +143,7 @@ class ContainerSiteHeader extends React.Component {
                   active
                   inline
                 />
-              )}
+              )} */}
           </Grid.Column>
           <Grid.Column
             width={4}
@@ -146,6 +152,13 @@ class ContainerSiteHeader extends React.Component {
               onClick={showDialogNewSnip.bind(null, true)}
               className="ContainerSiteHeader__header__col-right__new-gist"
               name="add circle"
+            />
+            <Icon
+              loading={loading}
+              onClick={this.props.fetchGists.bind(null, true)}
+              name="refresh"
+              title="Sync gists - get from Github"
+              className="ContainerSiteHeader__header__col-right__refresh"
             />
           </Grid.Column>
         </Grid.Row>
@@ -168,7 +181,8 @@ ContainerSiteHeader.propTypes = {
   setVisible: PropTypes.func.isRequired,
   changeCurrentTags: PropTypes.func.isRequired,
   showDialogNewSnip: PropTypes.func.isRequired,
-  searchGist: PropTypes.func.isRequired
+  searchGist: PropTypes.func.isRequired,
+  fetchGists: PropTypes.func.isRequired
 };
 
 ContainerSiteHeader.defaultProps = {
@@ -195,7 +209,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { ...actions, setVisible, searchGist, showDialogNewSnip },
+    { ...actions, setVisible, searchGist, showDialogNewSnip, fetchGists },
     dispatch
   );
 };

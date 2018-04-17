@@ -183,9 +183,9 @@ class Storage {
     return gists;
   }
 
-  async getGistsWithoutConfig() {
+  async getGistsWithoutConfig(options) {
     const finalGists = [];
-    const gists = await this.getGists();
+    const gists = await this.getGists(options);
     if (gists)
       for (let i = 0; i < gists.length; i++) {
         const gist = gists[i];

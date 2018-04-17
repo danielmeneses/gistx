@@ -17,7 +17,12 @@ const renderOption = option => {
 };
 
 const Tags = props => {
-  const { tags, currentSelectedTags: value, changeCurrentTags } = props;
+  const {
+    tags,
+    currentSelectedTags: value,
+    changeCurrentTags,
+    disabled
+  } = props;
   const listItems = Object.keys(tags).map(id => {
     const { name, color } = tags[id];
     return {
@@ -39,6 +44,7 @@ const Tags = props => {
         onChange={changeCurrentTags}
         options={listItems}
         value={value}
+        disabled={disabled === true}
         rtl={false}
       />
     )

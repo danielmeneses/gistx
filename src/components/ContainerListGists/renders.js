@@ -130,13 +130,13 @@ export default function Renders() {
           toggle
           checked={_public}
         />
-        <span className="DefaultDialog__label">Tags</span>
+        {/* <span className="DefaultDialog__label">Tags</span>
         <Tags
           className="DefaultDialog__tags"
           changeCurrentTags={this.props.changeSelectedNewGistTag}
           tags={existingTags}
           currentSelectedTags={selectedTag || null}
-        />
+        /> */}
       </div>
     );
   };

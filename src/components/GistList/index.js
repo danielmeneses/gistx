@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'semantic-ui-react';
+import { List, Icon } from 'semantic-ui-react';
 import GistListItem from '../GistListItem';
 // import { shouldComponentUpdate } from '../../lib/helpers';
 import WindowedList from 'react-windowed-list';
+
+import './styles.scss';
 
 let winSize = 600;
 try {
@@ -22,6 +24,10 @@ class GistList extends React.PureComponent {
     this._onclickGistItem = this._onclickGistItem.bind(this);
     this._renderItem = this._renderItem.bind(this);
   }
+
+  // shouldComponentUpdate() {
+  //   return this.props.activeItemIndex === -1;
+  // }
 
   // shouldComponentUpdate(nextProps) {
   //   return shouldComponentUpdate(nextProps, this.props);
@@ -67,21 +73,34 @@ class GistList extends React.PureComponent {
     );
   }
   render() {
-    const { gists } = this.props;
+    const { gists, showDialogNewSnip } = this.props;
 
-    return (
-      <List
-        divided
-        verticalAlign="middle"
-        className="ContainerListGists__gistlist"
-        style={CONTAINER_STYLE}>
-        <WindowedList
-          itemRenderer={this._renderItem}
-          length={gists.length}
-          type="uniform"
-        />
-      </List>
-    );
+    const renderGists =
+      gists.length < 0 ? (
+        <List
+          divided
+          verticalAlign="middle"
+          className="ContainerListGists__gistlist"
+          style={CONTAINER_STYLE}>
+          <WindowedList
+            itemRenderer={this._renderItem}
+            length={gists.length}
+            type="uniform"
+          />
+        </List>
+      ) : (
+        <div
+          style={{ height: winSize }}
+          className="ContainerListGists__no-gists">
+          <Icon
+            onClick={showDialogNewSnip.bind(null, true)}
+            name="smile"
+            className="ContainerListGists__no-gists__sad"
+          />
+        </div>
+      );
+
+    return renderGists;
   }
 }
 

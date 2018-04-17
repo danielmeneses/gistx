@@ -162,7 +162,8 @@ class ContainerListGists extends React.Component {
       deleteFile,
       changeTabActiveIndex,
       changeActiveGistIndex,
-      fetchGistContent
+      fetchGistContent,
+      showDialogNewSnip
     } = this.props;
 
     const deleteFileRendered = this._renderDeleteFileData();
@@ -206,6 +207,7 @@ class ContainerListGists extends React.Component {
           changeTabActiveIndex={changeTabActiveIndex}
           changeActiveGistIndex={changeActiveGistIndex}
           fetchGistContent={fetchGistContent}
+          showDialogNewSnip={showDialogNewSnip}
         />
       ),
       !gists.length &&
