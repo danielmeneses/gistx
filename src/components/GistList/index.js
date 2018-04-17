@@ -75,30 +75,27 @@ class GistList extends React.PureComponent {
   render() {
     const { gists, showDialogNewSnip } = this.props;
 
-    const renderGists =
-      gists.length > 0 ? (
-        <List
-          divided
-          verticalAlign="middle"
-          className="ContainerListGists__gistlist"
-          style={CONTAINER_STYLE}>
-          <WindowedList
-            itemRenderer={this._renderItem}
-            length={gists.length}
-            type="uniform"
-          />
-        </List>
-      ) : (
-        <div
-          style={{ height: winSize }}
-          className="ContainerListGists__no-gists">
-          <Icon
-            onClick={showDialogNewSnip.bind(null, true)}
-            name="smile"
-            className="ContainerListGists__no-gists__sad"
-          />
-        </div>
-      );
+    const renderGists = gists.length ? (
+      <List
+        divided
+        verticalAlign="middle"
+        className="ContainerListGists__gistlist"
+        style={CONTAINER_STYLE}>
+        <WindowedList
+          itemRenderer={this._renderItem}
+          length={gists.length}
+          type="uniform"
+        />
+      </List>
+    ) : (
+      <div style={{ height: winSize }} className="ContainerListGists__no-gists">
+        <Icon
+          onClick={showDialogNewSnip.bind(null, true)}
+          name="smile"
+          className="ContainerListGists__no-gists__sad"
+        />
+      </div>
+    );
 
     return renderGists;
   }

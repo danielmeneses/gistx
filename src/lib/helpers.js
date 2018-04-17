@@ -26,7 +26,8 @@ export const getToken = () => {
     try {
       token = window.localStorage.getItem(auth.localStorage.tokenKeyName);
     } catch (e) {
-      loglevel.warn('Couldnt get token:', e);
+      // handle window access from server
+      // loglevel.warn('Couldnt get token:', e);
     }
 
   return token;
