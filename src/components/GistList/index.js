@@ -76,7 +76,7 @@ class GistList extends React.PureComponent {
     const { gists, showDialogNewSnip } = this.props;
 
     const renderGists =
-      gists.length < 0 ? (
+      gists.length > 0 ? (
         <List
           divided
           verticalAlign="middle"
