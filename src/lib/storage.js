@@ -6,7 +6,7 @@ import db, { CONFIG_GIST_DESCRIPTION } from './db';
 
 const MAX_GISTS_TO_FETCH = 3000;
 
-const removeUnneededProps = async (gists, searchConfig = false) => {
+const removeUnneededProps = async gists => {
   if (!gists) return;
 
   if (typeof gists.length !== 'number') gists = [gists];
@@ -23,18 +23,6 @@ const removeUnneededProps = async (gists, searchConfig = false) => {
   };
   for (let i = 0; i < gists.length; i++) {
     const gist = gists[i];
-    if (searchConfig && gist.description === CONFIG_GIST_DESCRIPTION) {
-      const _gist = await getGist(gist.id);
-      db.setConfig({
-        content: {
-          description: _gist.description,
-          files: _gist.files
-        },
-        id: _gist.id
-      });
-      continue;
-    }
-
     const newGist = {};
     Object.keys(gist).forEach(key => {
       if (config[key]) {
@@ -167,15 +155,42 @@ class Storage {
     this.getGistDetails = this.getGistDetails.bind(this);
     this.deleteGist = this.deleteGist.bind(this);
     this.createGist = this.createGist.bind(this);
+    this.getGistsWithoutConfig = this.getGistsWithoutConfig.bind(this);
   }
   async getGists({ pagination, forceFetch = false } = {}) {
     let gists = getItem(config.sessionStorage.gistsKeyName);
     if (!gists || forceFetch) {
       gists = await getAllGists({ pagination });
+      if (gists)
+        for (let i = 0; i < gists.length; i++) {
+          const gist = gists[i];
+          if (gist.description === CONFIG_GIST_DESCRIPTION) {
+            const _gist = await getGist(gist.id);
+            db.setConfig({
+              content: {
+                description: _gist.description,
+                files: _gist.files
+              },
+              id: _gist.id
+            });
+          }
+        }
       this.saveGists(gists);
-      return gists;
     }
+
     return gists;
+  }
+
+  async getGistsWithoutConfig() {
+    const finalGists = [];
+    const gists = await this.getGists();
+    if (gists)
+      for (let i = 0; i < gists.length; i++) {
+        const gist = gists[i];
+        if (gist.description === CONFIG_GIST_DESCRIPTION) continue;
+        finalGists.push(gist);
+      }
+    return finalGists;
   }
 
   async getGistDetails(id) {
@@ -200,11 +215,11 @@ class Storage {
     const gists = await this.getGists();
     for (let i = 0; i < gists.length; i++)
       if (gists[i].id === id) {
-        await editGist(id, gistDataToSave);
+        const response = await editGist(id, gistDataToSave);
         const gist = await getGist(id);
         gists[i] = gist;
         this.saveGists(gists);
-        return this;
+        return response;
       }
 
     return this;
@@ -228,6 +243,7 @@ class Storage {
     const gists = await this.getGists();
     finalGists.push(newGist, ...gists);
     this.saveGists(finalGists);
+    return newGist;
   }
 
   saveGists(gists) {

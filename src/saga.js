@@ -4,6 +4,8 @@ import { fetchGistContentDataDaemon } from './components/ContainerListGists/saga
 import { editGistContentDataDaemon } from './components/ContainerListGists/saga/edit-gist';
 import { createGistDataDaemon } from './components/ContainerListGists/saga/create-gist';
 import { deleteGistDataDaemon } from './components/ContainerListGists/saga/delete-gist';
+import { createTagtDataDaemon } from './components/ContainerSiteHeader/saga/add-tag';
+
 export default function* sagas() {
   // yield takeEvery(ACTION, sagaData)
   yield all([
@@ -11,6 +13,7 @@ export default function* sagas() {
     fetchGistContentDataDaemon(),
     editGistContentDataDaemon(),
     createGistDataDaemon(),
-    deleteGistDataDaemon()
+    deleteGistDataDaemon(),
+    createTagtDataDaemon()
   ]);
 }

@@ -1,4 +1,5 @@
 import storage from './storage';
+import { generateUniqueId } from './helpers';
 
 export const CONFIG_GIST_DESCRIPTION = '__SNIPS::::CONFIG::::PROPS__';
 const TAGS_FILENAME = 'tags.json';
@@ -7,6 +8,14 @@ class DB {
   constructor() {
     // { id, content: { files: { content: '' } } }
     this.config = null;
+
+    // binding
+    this.getTags = this.getTags.bind(this);
+    this.addTag = this.addTag.bind(this);
+    this.setConfig = this.setConfig.bind(this);
+    this.saveConfig = this.saveConfig.bind(this);
+    this._getTagsInfo = this._getTagsInfo.bind(this);
+    this.getGistTags = this.getGistTags.bind(this);
   }
 
   setConfig(config = null) {
@@ -33,13 +42,12 @@ class DB {
       const newContent = {
         ...content,
         files: {
-          ...Object.keys(content.files).map(key => {
-            return {
-              [key]: {
-                content: JSON.stringify(content.files[key].content)
-              }
+          ...Object.keys(content.files).reduce((all, key) => {
+            all[key] = {
+              content: JSON.stringify(content.files[key].content)
             };
-          })
+            return all;
+          }, {})
         }
       };
       if (id)
@@ -55,12 +63,29 @@ class DB {
 
   _getTagsInfo(field) {
     if (this.config && this.config.content.files[TAGS_FILENAME]) {
-      const content = JSON.parse(
-        this.config.content.files[TAGS_FILENAME].content
-      );
-      if (content) if (content[field]) return content[field];
+      let content = this.config.content.files[TAGS_FILENAME].content;
+
+      if (typeof content === 'string')
+        content = JSON.parse(this.config.content.files[TAGS_FILENAME].content);
+
+      if (content && content[field]) return content[field];
     }
     return {};
+  }
+
+  async addTag(color, label) {
+    const tags = this.getTags();
+    tags[generateUniqueId()] = {
+      color,
+      name: label
+    };
+
+    const content = {
+      ...JSON.parse(this.config.content.files[TAGS_FILENAME].content),
+      tags
+    };
+    this.config.content.files[TAGS_FILENAME].content = content;
+    await this.saveConfig();
   }
 
   getTags() {

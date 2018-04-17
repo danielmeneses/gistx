@@ -19,7 +19,7 @@ function* fetchGistsData(action) {
   try {
     const { forceFetch } = action;
     yield put(setBeachBallVisible(true));
-    const response = yield call(storage.getGists, { forceFetch });
+    const response = yield call(storage.getGistsWithoutConfig, { forceFetch });
     yield put(fetchGistsSuccess(response));
     yield put(setTagsData(db.getTags(), db.getGistTags()));
   } catch (e) {
