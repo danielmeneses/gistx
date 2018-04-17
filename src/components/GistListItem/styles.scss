@@ -79,11 +79,10 @@ $gistLineBack: #333;
       right: 1rem;
       margin-top: .1rem;
       display: none;
-      font-size: 1.1rem;
-      transition: font-size 0.35s ease, right 0.35s ease, color 0.35s ease;
+      font-size: 1.3rem;
+      transition: transform 0.35s ease, color 0.35s ease;
       &:hover {
-        font-size: 1.6rem;
-        right: .7rem;
+        transform: scale(1.3);
         text-shadow: 0px 5px 10px #aaa;
         color: #FF4B4B;
       }
@@ -91,7 +90,6 @@ $gistLineBack: #333;
     &__edit {
       right: 3.2rem;
       &:hover {
-        right: 2.9rem;
         color: #444;
       }
     }

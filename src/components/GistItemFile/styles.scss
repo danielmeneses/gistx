@@ -51,18 +51,19 @@
       position: relative;
       margin-top: .2rem !important;
       float: right;
+      color: #555;
       &:before {
-        color: #555;
-        transition: font-size 0.3s ease, margin-left 0.3s ease, color 0.3s ease;
         font-size: 1.3rem;
       }
+      transition: transform 0.3s ease, color 0.3s ease;
       &:hover {
-        &:before {
-          cursor: pointer;
-          color: #FF4B4B;
-          font-size: 2rem;
-          margin-left: -.2rem;
-        }
+        cursor: pointer;
+        transform: scale(1.4);
+      }
+    }
+    &__deletebtn {
+      &:hover {
+        color: #FF4B4B;
       }
     }
     &__deletebtn, &__file-url {
@@ -73,8 +74,6 @@
         &:before {
           cursor: pointer;
           color: white;
-          font-size: 2rem;
-          margin-left: -.2rem;
         }
       }
     }
@@ -83,8 +82,6 @@
         &:before {
           cursor: pointer;
           color: lime;
-          font-size: 2rem;
-          margin-left: -.2rem;
         }
       }
     }
