@@ -21,6 +21,7 @@ export const getLanguageByExtension = (filename, langsList) => {
 export default [
   { key: 'json', value: 'json', text: 'json' },
   { key: 'js', value: 'js', text: 'javascript' },
+  { key: 'ts', value: 'ts', text: 'typescript' },
   { key: 'php', value: 'php', text: 'php' },
   { key: 'css', value: 'css', text: 'css' },
   { key: 'txt', value: 'txt', text: 'Simple text' },
